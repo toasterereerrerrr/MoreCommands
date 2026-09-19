@@ -1,0 +1,3 @@
+/sethome 123
+/homes
+/home 123

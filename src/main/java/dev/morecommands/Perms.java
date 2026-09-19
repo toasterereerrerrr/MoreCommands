@@ -15,4 +15,14 @@ public final class Perms {
 	public static boolean utility(CommandSourceStack source) {
 		return !Config.get().utilityCommandsRequireOp || gamemaster(source);
 	}
+
+	/** Basic moderation tasks. Level 1 and up. */
+	public static boolean moderator(CommandSourceStack source) {
+		return source.permissions().hasPermission(Permissions.COMMANDS_MODERATOR);
+	}
+
+	/** Social commands (/msg, /me, /nick, etc). Open to everyone by default. */
+	public static boolean social(CommandSourceStack source) {
+		return true;
+	}
 }

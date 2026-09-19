@@ -19,6 +19,15 @@ public final class Config {
 	/** If true, portable menus (/craft, /anvil, /ec, ...) and /hat need operator (gamemaster) permission. */
 	public boolean utilityCommandsRequireOp = true;
 
+	/** Seconds until a TPA request expires. */
+	public int tpaTimeoutSeconds = 120;
+
+	/** Maximum distance for /rtp. */
+	public int rtpRange = 5000;
+
+	/** If true, players can set nicknames for themselves. */
+	public boolean allowNicknames = true;
+
 	private static Config instance = new Config();
 
 	public static Config get() {

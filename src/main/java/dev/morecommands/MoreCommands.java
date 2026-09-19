@@ -3,7 +3,12 @@ package dev.morecommands;
 import dev.morecommands.commands.HomeCommands;
 import dev.morecommands.commands.InfoCommands;
 import dev.morecommands.commands.MenuCommands;
+import dev.morecommands.commands.MiscCommands;
 import dev.morecommands.commands.PlayerCommands;
+import dev.morecommands.commands.SocialCommands;
+import dev.morecommands.commands.TeleportExpansionCommands;
+import dev.morecommands.commands.UtilityCommands;
+import dev.morecommands.commands.WarpCommands;
 import dev.morecommands.commands.WorldCommands;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -21,9 +26,15 @@ public class MoreCommands implements ModInitializer {
 	public void onInitialize() {
 		Config.load();
 
-		// Homes are stored per world, so load them when a server (or integrated world) starts.
-		ServerLifecycleEvents.SERVER_STARTED.register(HomeStore::load);
-		ServerLifecycleEvents.SERVER_STOPPING.register(server -> HomeStore.save());
+		// Homes and warps are stored per world, so load them when a server (or integrated world) starts.
+		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
+			HomeStore.load(server);
+			WarpStore.load(server);
+		});
+		ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
+			HomeStore.save();
+			WarpStore.save();
+		});
 
 		// Remember where a player died so /back can take them there.
 		ServerLivingEntityEvents.AFTER_DEATH.register((entity, source) -> {
@@ -38,6 +49,12 @@ public class MoreCommands implements ModInitializer {
 			HomeCommands.register(dispatcher);
 			InfoCommands.register(dispatcher);
 			WorldCommands.register(dispatcher);
+
+			WarpCommands.register(dispatcher);
+			TeleportExpansionCommands.register(dispatcher);
+			UtilityCommands.register(dispatcher);
+			SocialCommands.register(dispatcher);
+			MiscCommands.register(dispatcher);
 		});
 
 		LOGGER.info("More Commands loaded.");

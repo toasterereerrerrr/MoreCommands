@@ -28,13 +28,8 @@ public final class WorldCommands {
 	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 		// These simply run the vanilla command as the person who typed them, so vanilla feedback and
 		// permission checks still apply.
-		alias(dispatcher, "day", "time set day");
 		alias(dispatcher, "noon", "time set noon");
-		alias(dispatcher, "night", "time set night");
 		alias(dispatcher, "midnight", "time set midnight");
-		alias(dispatcher, "sun", "weather clear");
-		alias(dispatcher, "rain", "weather rain");
-		alias(dispatcher, "storm", "weather thunder");
 
 		dispatcher.register(Commands.literal("butcher")
 			.requires(Perms::gamemaster)
