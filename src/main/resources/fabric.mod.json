@@ -1,0 +1,23 @@
+{
+	"schemaVersion": 1,
+	"id": "morecommands",
+	"version": "${version}",
+	"name": "More Commands",
+	"description": "Quality-of-life commands: homes and /back, portable crafting and utility menus, heal, feed, repair, quick time and weather shortcuts, and cleanup tools.",
+	"authors": [
+		"YOUR_NAME"
+	],
+	"license": "All Rights Reserved",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.morecommands.MoreCommands"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
