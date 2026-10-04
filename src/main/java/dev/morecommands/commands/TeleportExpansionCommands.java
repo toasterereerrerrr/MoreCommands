@@ -146,12 +146,25 @@ public final class TeleportExpansionCommands {
 		ServerLevel level = (ServerLevel) player.level();
 		int range = Config.get().rtpRange;
 
-		double x = (Math.random() * range * 2) - range;
-		double z = (Math.random() * range * 2) - range;
-		int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING, (int) x, (int) z);
+		for (int i = 0; i < 50; i++) {
+			double dx = (Math.random() * range * 2) - range;
+			double dz = (Math.random() * range * 2) - range;
+			double x = player.getX() + dx;
+			double z = player.getZ() + dz;
 
-		Teleports.teleport(player, level, x + 0.5, y, z + 0.5, player.getYRot(), player.getXRot());
-		ctx.getSource().sendSuccess(() -> Msg.ok("Teleported to a random location."), false);
-		return Command.SINGLE_SUCCESS;
+			// Ensure we stay within world borders
+			if (!level.getWorldBorder().isWithinBounds(x, z)) continue;
+
+			int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING, (int) x, (int) z);
+
+			// Only teleport if the surface is at or above Y=50
+			if (y >= 50) {
+				Teleports.teleport(player, level, x + 0.5, y, z + 0.5, player.getYRot(), player.getXRot());
+				ctx.getSource().sendSuccess(() -> Msg.ok("Teleported to a random location."), false);
+				return Command.SINGLE_SUCCESS;
+			}
+		}
+
+		throw Msg.fail("Could not find a safe location above Y=50 after 50 attempts. Try again.");
 	}
 }

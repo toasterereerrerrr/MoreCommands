@@ -1,3 +1,13 @@
 /sethome 123
 /homes
 /home 123
+/rtp
+/hat
+/rtp
+/rtp/
+/rtp
+/nick hello
+/realname
+/realname twoat
+/realname hello
+/whois Player936
